@@ -136,6 +136,9 @@
   background-repeat: no-repeat;
   background-size: 1rem 1rem;
 }
+        .chat-container { width: 300px; margin: auto; border: 1px solid #ccc; border-radius: 5px; padding: 10px; }
+        .messages { height: 200px; overflow-y: auto; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+        .input-box { width: 100%; padding: 5px; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -201,6 +204,10 @@
                 <iframe width="725" height="453" src="https://www.tinkercad.com/embed/hscR9raiWLH?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
             </div>
             <br>
+            <div class="chat-container">
+            <div class="messages" id="chatMessages"></div>
+            <input type="text" id="userInput" class="input-box" placeholder="Type a message..." onkeypress="sendMessage(event)">
+        </div>
         </div>
     </div>
    
@@ -253,6 +260,20 @@
         }
 
         setInterval(showNextSlide, 3000);
+        function sendMessage(event) {
+                if (event.key === "Enter") {
+                    let input = document.getElementById("userInput");
+                    let message = input.value.trim();
+                    if (message !== "") {
+                        let chatBox = document.getElementById("chatMessages");
+                        let newMessage = document.createElement("div");
+                        newMessage.textContent = "You: " + message;
+                        chatBox.appendChild(newMessage);
+                        input.value = "";
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    }
+                }
+            }
     </script>
 </body>
 </html>
